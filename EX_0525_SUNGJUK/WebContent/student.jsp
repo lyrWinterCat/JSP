@@ -13,13 +13,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script>
+		function del(no){
+			if(confirm("정말 삭제하시겠습니까?")==false){
+				return; // 아니오 버튼 클릭시 삭제X
+			}
+			//예 버튼 클릭시 (no를 get방식으로 파라미터 전달)
+			location.href='sung_del.jsp?no='+no;
+		}
+		
+		function modify(no,name,kor,eng,mat){
+			location.href='sung_update.jsp?no='+no+"&name="+name+"&kor="+kor+"&eng="+eng+"&mat="+mat;
+		}
+		
+		
+	</script>	
 <style>
 	table{border:2px solid black;
 		border-collapse:collapse;}
 	tr{height : 30px;}
 	td{width : 110px;
 	text-align : center;}
-	div{width : 600px;
+	div{width : 650px;
 	border-top : 1px solid silver;}
 
 </style>
@@ -65,8 +80,12 @@
 			<td><%=sv.getAvg() %></td>	
 			<td><%=sv.getRank() %></td>	
 			
-			<!-- 비고란에 삭제 버튼 만들기 -->
-			<td><input type="button" value="삭제"></td>
+			<!-- 비고란에 삭제 버튼 만들기 * 따옴표에서 오타 나지 않게 주의-->
+			<td colspan="2">
+			<input type="button" value="수정" onclick="modify('<%= sv.getNo()%>',
+			'<%=sv.getName()%>','<%=sv.getKor()%>','<%=sv.getEng()%>','<%=sv.getMat()%>')">
+			<input type="button" value="삭제" onclick="del('<%=sv.getNo()%>')">
+			</td>
 				
 		</tr>
 		<%} %>
